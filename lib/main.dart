@@ -5,6 +5,8 @@ import 'package:reply/menu/class_model.dart';
 import 'package:reply/model/email_model.dart';
 import 'package:reply/styling.dart';
 import 'package:get/get.dart';
+import 'connect/Global.dart';
+import 'login/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
           // accentColor: AppTheme.orange,
         ),
         //主题
-        home: HomePage(),
+        home: Global.userId == 0? LoginPage() : HomePage(),
       ),
     );
     //状态管理 provider

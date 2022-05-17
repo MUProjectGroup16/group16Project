@@ -13,6 +13,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:get/get.dart';
 import 'package:reply/setting_page/setting.dart';
 import 'package:reply/menu/course_management.dart.dart';
+import 'connect/dio2.dart';
 import 'search/search bar.dart';
 import 'user_page.dart';
 
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   final GlobalKey _fabKey = GlobalKey();
   final PageRouteBuilder<void> _initialRoute = PageRouteBuilder<void>(
-      pageBuilder: (BuildContext context, _, __) => ListPage());
+      pageBuilder: (BuildContext context, _, __) => dio2());
   PanelController _pc = new PanelController();
   bool up = true;
 

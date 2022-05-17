@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:reply/list_page.dart';
 import '../model/email.dart';
 import '../model/email_model.dart';
+import 'Global.dart';
 
 class dio2 extends StatefulWidget {
   const dio2({Key key}) : super(key: key);
@@ -21,19 +23,19 @@ class _dio2State extends State<dio2> {
     super.initState();
   }
   getHttp() async{
-    var path = "http://173.82.212.40:8989/course/selectAll";
+    String a = Global.userId;
+    var path = "http://173.82.212.40:8989/notification/selectByReceiver?receiveUserId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {
         list2 = jsonDecode(res.data);
       }
     });
-    // print(list);
   }
 
 
   Widget build(BuildContext context) {
-    return Container();
+    return ListPage();
 
   }
 }

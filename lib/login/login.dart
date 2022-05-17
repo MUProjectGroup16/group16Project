@@ -6,6 +6,7 @@ import 'package:get/route_manager.dart';
 
 import '../home_page.dart';
 import 'sign_up.dart';
+import '../connect/Global.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -18,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   var resultJson = "";
   var username = "";
   var password = "";
+  int a = 0;
 
   @override
   void initState() {
@@ -37,11 +39,15 @@ class _LoginPageState extends State<LoginPage> {
 
     this.setState(() {
       if (response.data != "data not exits") {
-        int a = jsonDecode(response.data)["userId"];
+        a = jsonDecode(response.data)["userId"];
         resultJson = a.toString();
       } else {
         resultJson = "";
       }
+    });
+    print(response);
+    setState(() {
+      Global.userId = resultJson;
     });
   }
 
@@ -117,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 50,
                   width: MediaQuery.of(context).size.width - 40,
-                  child: RaisedButton(
+                  child: MaterialButton(
                     child: const Text(
                       "Sign in",
                       style: TextStyle(

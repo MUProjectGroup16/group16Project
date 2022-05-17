@@ -6,6 +6,7 @@ import 'package:reply/styling.dart';
 import '../ui/class_item.dart';
 import 'class_model.dart';
 import 'class.dart';
+import '../connect/Global.dart';
 
 class get1 extends StatelessWidget {
   get1(this.list, {Key key}) : super(key: key);
@@ -13,8 +14,6 @@ class get1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(list.length);
-
     return Consumer<classModel>(builder: (
       BuildContext context,
       classModel model,

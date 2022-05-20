@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:reply/transition/fab_fill_transition.dart';
 import 'package:reply/styling.dart';
 import 'package:get/get.dart';
-
+import 'password.dart';
 import '../login/login.dart';
 
 class SettingPage extends StatefulWidget {
@@ -257,7 +257,9 @@ class _SettingPageState extends State<SettingPage> {
       child: Column(
         children: <Widget>[
           MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(PasswordPage());
+              },
               color: AppTheme.on_primary,
               elevation: 0,
               highlightElevation: 0,
@@ -279,7 +281,7 @@ class _SettingPageState extends State<SettingPage> {
                     Icon(Icons.keyboard_arrow_right),
                   ],
                 ),
-              ))
+              ),),
         ],
       ),
     );

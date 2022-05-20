@@ -101,7 +101,7 @@ class _CreateACourseState extends State<EditCoursesPage> {
                   size: 24,
                   color: AppTheme.on_surface_variant,
                 ),
-                onPressed: () => Get.to(HomePage()),
+                onPressed: () =>  Navigator.of(context).pop(),
               ),
               Expanded(
                 child: Center(

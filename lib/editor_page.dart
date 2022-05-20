@@ -6,9 +6,10 @@ import 'package:reply/styling.dart';
 import 'package:reply/transition/fab_fill_transition.dart';
 
 import 'model/email.dart';
+import 'package:dio/dio.dart';
 
 //编辑页
-
+///回复
 class EditorPage extends StatefulWidget {
   const EditorPage({Key key, @required this.sourceRect})
       : assert(sourceRect != null),
@@ -67,6 +68,38 @@ class _EditorPageState extends State<EditorPage> {
   String _recipientAvatar = 'avatar.png';
   bool keyboard = false;
 
+  var resultJson = "";
+  int receiveuserId;
+  int senduserId;
+  var title = "";
+  var contect = "";
+  var file = "";
+
+
+  @override
+  void initState() {
+    getHttp();
+    super.initState();
+  }
+
+  getHttp() async {
+    var path = "http://173.82.212.40:8989/notification/insert";
+    var params = {
+      "receiveUserId": receiveuserId,
+      "sendUserId": senduserId,
+      "title": title,
+      "content": contect,
+      "file": file,
+    };
+
+    Response response = await Dio().post(path, data: params);
+
+    this.setState(() {
+      resultJson = response.data;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final EmailModel emailModel = Provider.of<EmailModel>(context);
@@ -102,6 +135,8 @@ class _EditorPageState extends State<EditorPage> {
                         _subjectRow,
                         _spacer,
                         _recipientRow,
+                        _spacer,
+                        _titleRow,
                         _spacer,
                         _message,
                         _spacer,
@@ -237,6 +272,23 @@ class _EditorPageState extends State<EditorPage> {
       ),
     );
   }
+
+  Widget get _titleRow{
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: TextField(
+        minLines: 1,
+        maxLines: 1,
+        decoration: InputDecoration.collapsed(hintText: 'Title'),
+        autofocus: false,
+        style: Theme.of(context).textTheme.caption.copyWith(fontSize: 14),
+        onChanged: (value) {
+          title = value;
+        },
+      ),
+    );
+  }
+
 
   Widget get _message {
     return Padding(

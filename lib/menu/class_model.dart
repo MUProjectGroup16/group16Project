@@ -6,14 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 class classModel with ChangeNotifier {
-  final List<classes> Classes = <classes>[
-    classes("CS171FZ[A]", "Computer Systems 1", "(2021-22:Semester 1)", true),
-    classes("CS171FZ[A]", "Computer Systems 1", "(2021-22:Semester 1)", true),
-    classes("CS171FZ[A]", "Computer Systems 1", "(2021-22:Semester 1)", true),
-    classes("CS171FZ[A]", "Computer Systems 1", "(2021-22:Semester 1)", true),
-    classes("CS171FZ[A]", "Computer Systems 1", "(2021-22:Semester 1)", true),
-    classes("CS171FZ[A]", "Lol", "(2021-22:Semester 1)", false),
-  ];
+  final List<classes> Classes = <classes>[];
 
 // int _currentlySelectedEmailId = -1;
 //

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:reply/search/search bar.dart';
 import 'search bar.dart';
 
+
 class SearchCell extends StatelessWidget {
   const SearchCell({Key key}) : super(key: key);
 
@@ -10,7 +11,7 @@ class SearchCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap:() => {
-        Get.to(SearchPage(),)
+        Get.to(SearchPage())
       },
       child: Container(
         height: 80,

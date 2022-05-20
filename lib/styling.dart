@@ -153,4 +153,18 @@ class AppTheme {
     fontWeight: FontWeight.normal,
     color: AppTheme.on_surface,
   );
+
+  static const TextStyle list1 = TextStyle(
+    fontSize: 12,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.normal,
+    color: Color(0x99000000),
+  );
+
+  static const TextStyle list2 = TextStyle(
+    fontSize: 18,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.normal,
+    color: Color(0xDE000000),
+  );
 }

@@ -2,19 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:reply/list_page.dart';
-import '../model/email.dart';
-import '../model/email_model.dart';
+import 'package:reply/menu/Manage_My_Courses.dart';
 import 'Global.dart';
-//消息的连接
-class dio2 extends StatefulWidget {
-  const dio2({Key key}) : super(key: key);
+import '../addcourse.dart';
+//课程的连接
+class dio3 extends StatefulWidget {
+  const dio3({Key key}) : super(key: key);
 
   @override
-  State<dio2> createState() => _dio2State();
+  State<dio3> createState() => _dio3State();
 }
 
-class _dio2State extends State<dio2> {
+class _dio3State extends State<dio3> {
   List list2 = [];
 
   @override
@@ -24,7 +23,7 @@ class _dio2State extends State<dio2> {
   }
   getHttp() async{
     String a = Global.userId;
-    var path = "http://173.82.212.40:8989/notification/selectByReceiver?receiveUserId=$a";
+    var path = "http://173.82.212.40:8989/course/selectCoursesByUser?userId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {
@@ -35,7 +34,7 @@ class _dio2State extends State<dio2> {
 
 
   Widget build(BuildContext context) {
-    return get3(list2);
+    return get2(list2);
 
   }
 }

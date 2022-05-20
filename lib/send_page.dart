@@ -1,16 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reply/connect/dio3.dart';
 import 'package:reply/model/email_model.dart';
 import 'package:reply/styling.dart';
 import 'package:reply/transition/fab_fill_transition.dart';
 
 import 'model/email.dart';
+import 'connect/Global.dart';
+import 'package:dio/dio.dart';
+import 'package:get/route_manager.dart';
+import 'home_page.dart';
 
 //编辑页
-
+///发送
 class SendPage extends StatefulWidget {
-  const SendPage({Key key, @required this.sourceRect})
+  SendPage({Key key, @required this.sourceRect})
       : assert(sourceRect != null),
         super(key: key);
 
@@ -35,11 +42,46 @@ class _EditorPageState extends State<SendPage> {
   String _recipientAvatar = 'avatar.png';
   bool keyboard = false;
 
+  var resultJson = "";
+  int receiveuserId;
+  int senduserId = int.parse(Global.userId);
+  var title = "";
+  var contect = "";
+  var file = "";
+
+  @override
+  void initState() {
+    postHttp();
+    super.initState();
+  }
+
+  postHttp() async {
+    var path = "http://173.82.212.40:8989/notification/insert";
+    var params =
+      [
+        {
+          "receiveUserId": receiveuserId,
+          "sendUserId": senduserId,
+          "notificationStatue": 1,
+          "title": title,
+          "content": contect,
+          "file": file,
+        }
+      ];
+
+    Response response = await Dio().post(path, data: params);
+
+    this.setState(() {
+      resultJson = response.data;
+    });
+    print(resultJson);
+    print("1111111");
+  }
+
   @override
   Widget build(BuildContext context) {
     final EmailModel emailModel = Provider.of<EmailModel>(context);
     String fabIcon = 'assets/images/ic_edit.png';
-
 
     return FabFillTransition(
       source: widget.sourceRect,
@@ -63,6 +105,8 @@ class _EditorPageState extends State<SendPage> {
                         _spacer,
                         _recipientRow,
                         _spacer,
+                        _titleRow,
+                        _spacer,
                         _message,
                         _spacer,
                         _attachment,
@@ -82,28 +126,28 @@ class _EditorPageState extends State<SendPage> {
                           color: AppTheme.background,
                           height: 40,
                           child: MaterialButton(
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    icon: Icon(
-                                      Icons.image_outlined,
-                                      color: AppTheme.on_surface_variant,
-                                    ),
-                                    onPressed: () => print('aaa'),
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  icon: Icon(
+                                    Icons.image_outlined,
+                                    color: AppTheme.on_surface_variant,
                                   ),
-                                  IconButton(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    icon: Icon(
-                                      Icons.insert_drive_file_outlined,
-                                      color: AppTheme.on_surface_variant,
-                                    ),
-                                    onPressed: () => print('aaa'),
+                                  onPressed: () => print('aaa'),
+                                ),
+                                IconButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  icon: Icon(
+                                    Icons.insert_drive_file_outlined,
+                                    color: AppTheme.on_surface_variant,
                                   ),
-                                ],
-                              )
+                                  onPressed: () => print('aaa'),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -122,7 +166,7 @@ class _EditorPageState extends State<SendPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child:
-      Container(width: double.infinity, height: 1, color: AppTheme.outline),
+          Container(width: double.infinity, height: 1, color: AppTheme.outline),
     );
   }
 
@@ -131,7 +175,7 @@ class _EditorPageState extends State<SendPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center, 
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           IconButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -142,10 +186,26 @@ class _EditorPageState extends State<SendPage> {
           ),
           Expanded(
               child: Center(
-                child: Text("Send", style: Theme.of(context).textTheme.subtitle2),
-              )),
+            child: Text("Send", style: Theme.of(context).textTheme.subtitle2),
+          )),
           IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              postHttp();
+              Get.defaultDialog(
+                  middleText: "嗶哢嗶哢被玩壞了！"
+                      "這肯定不是嗶哢的問題！"
+                      "絕對不是！");
+              Future.delayed(Duration(seconds: 1), () {
+                Navigator.of(context).pop();
+                if (resultJson != "") {
+                  resultJson = "";
+                  Navigator.of(context).pushAndRemoveUntil(
+                      new MaterialPageRoute(
+                          builder: (context) => new HomePage()),
+                      (route) => route == null);
+                }
+              });
+            },
             icon: Image.asset(
               'assets/images/ic_send.png',
               width: 24,
@@ -160,42 +220,77 @@ class _EditorPageState extends State<SendPage> {
 
   Widget get _recipientRow {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            child: Wrap(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                
+                Text(
+                  "TO",
+                  textAlign: TextAlign.center,
+                ),
                 //标签
-                Chip(
-                  //圆形头像
-                  //backgroundColor: AppTheme.chipBackground,
-                  // padding: EdgeInsets.zero,
-                  backgroundColor: AppTheme.on_primary,
-                  side: BorderSide(color: AppTheme.on_surface_variant, width: 1),
-                  padding: EdgeInsets.only(
-                    left: 4,
-                    top: 4,
-                    bottom: 4,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      _claas,
+                    ],
                   ),
-                  avatar: CircleAvatar(
-                    backgroundImage:
-                    AssetImage('assets/images/$_recipientAvatar'),
-                  ),
-                  // label: Text(_recipient, style: Theme.of(context).textTheme.subtitle1)
-                  label: Text("Teacher",
-                      style: Theme.of(context).textTheme.subtitle1),
+                ),
+
+                IconButton(
+                  onPressed: () {
+                    Get.to(dio3());
+                  },
+                  icon: Icon(Icons.add_circle_outline),
                 ),
               ],
             ),
           ),
-          // const Icon(
-          //   Icons.add_circle_outline,
-          //   color: AppTheme.lightText,
-          // )
         ],
+      ),
+    );
+  }
+
+  Widget get _claas {
+    if (Global.addcourse.length <= 0) {
+      return Container();
+    } else {
+      return RawChip(
+        label: Text(Global.addcourse[1].toString()),
+        onDeleted: () {
+          print('onDeleted');
+          setState(() {
+            receiveuserId = Global.addcourse[0];
+            Global.addcourse.clear();
+          });
+        },
+        deleteIcon: Icon(Icons.close_outlined),
+        deleteButtonTooltipMessage: 'delete',
+      );
+    }
+  }
+
+  Widget get _titleRow {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: TextField(
+        minLines: 1,
+        maxLines: 1,
+        decoration: InputDecoration.collapsed(hintText: 'Title'),
+        autofocus: false,
+        style: Theme.of(context).textTheme.caption.copyWith(fontSize: 14),
+        onChanged: (value) {
+          title = value;
+        },
       ),
     );
   }
@@ -209,6 +304,9 @@ class _EditorPageState extends State<SendPage> {
         decoration: InputDecoration.collapsed(hintText: 'Message'),
         autofocus: false,
         style: Theme.of(context).textTheme.caption.copyWith(fontSize: 14),
+        onChanged: (value) {
+          contect = value;
+        },
       ),
     );
   }
@@ -230,5 +328,4 @@ class _EditorPageState extends State<SendPage> {
       ),
     );
   }
-
 }

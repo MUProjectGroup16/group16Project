@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           // accentColor: AppTheme.orange,
         ),
         //主题
-        home: Global.userId == 0? LoginPage() : HomePage(),
+        home: Global.userId == '0'? LoginPage() : HomePage(),
       ),
     );
     //状态管理 provider

@@ -74,7 +74,7 @@ class _CreateACourseState extends State<CreateACoursePage> {
               IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onPressed: () => Get.to(HomePage()),
+                onPressed: () =>  Navigator.of(context).pop(),
                 icon: const Icon(
                   Icons.home_outlined,
                   color: AppTheme.on_primary,

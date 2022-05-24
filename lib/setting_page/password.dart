@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reply/styling.dart';
+import 'package:demo/styling.dart';
 import 'package:get/route_manager.dart';
-import 'package:reply/home_page.dart';
+import 'package:demo/home_page.dart';
 
 
 class PasswordPage extends StatefulWidget {

@@ -26,7 +26,7 @@ class _SignupimageState extends State<Signupimage> {
         child: Container(
           color: Colors.white,
           child: Padding(
-            padding:  EdgeInsets.only(left: 16, top: 20, right: 16),
+            padding: const EdgeInsets.only(left: 16, top: 20, right: 16),
             child: Column(
               children: <Widget>[
                 const SizedBox(

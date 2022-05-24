@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:reply/setting_page/setting.dart';
-import 'package:reply/styling.dart';
-import 'package:reply/home_page.dart';
+import 'package:demo/setting_page/setting.dart';
+import 'package:demo/styling.dart';
+import 'package:demo/home_page.dart';
 import 'course_management.dart.dart';
 
 class CreateACoursePage extends StatefulWidget {

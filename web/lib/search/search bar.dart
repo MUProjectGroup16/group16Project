@@ -1,13 +1,13 @@
 ///new add
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/model/email.dart';
-import 'package:reply/model/email_model.dart';
+import 'package:demo/model/email.dart';
+import 'package:demo/model/email_model.dart';
 import '../transition/scale_out_transition.dart';
 import '../ui/list_item.dart';
 import 'search_cell.dart';
 
-import 'package:reply/styling.dart';
+import 'package:demo/styling.dart';
 
 class SearchPage extends StatefulWidget {
   final List<Email> email;

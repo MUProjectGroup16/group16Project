@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/connect/dio3.dart';
-import 'package:reply/model/email_model.dart';
-import 'package:reply/styling.dart';
-import 'package:reply/transition/fab_fill_transition.dart';
+import 'package:demo/connect/dio3.dart';
+import 'package:demo/model/email_model.dart';
+import 'package:demo/styling.dart';
+import 'package:demo/transition/fab_fill_transition.dart';
 
 import 'model/email.dart';
 import 'connect/Global.dart';

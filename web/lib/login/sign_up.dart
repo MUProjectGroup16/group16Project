@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:get/route_manager.dart';
 import 'package:dio/dio.dart';
-import 'account_page.dart';
+import 'package:get/route_manager.dart';
+import 'sign_up_image.dart';
 
-class Signupimage extends StatefulWidget {
-  const Signupimage({Key key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key key}) : super(key: key);
 
   @override
-  State<Signupimage> createState() => _SignupimageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _SignupimageState extends State<Signupimage> {
-  var _imgPath;
+class _SignupPageState extends State<SignupPage> {
+  var resultJson = "";
+  var username = "";
+  var password = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  postRequest() async {
+    var path = "http://173.82.212.40:8989/user/login";
+    var params = {
+      "email": "123@Test2",
+      "password": "222222",
+    };
+
+    Response response = await Dio().post(path, data: params);
+
+    this.setState(() {
+      resultJson = response.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +46,7 @@ class _SignupimageState extends State<Signupimage> {
         child: Container(
           color: Colors.white,
           child: Padding(
-            padding:  EdgeInsets.only(left: 16, top: 20, right: 16),
+            padding: const EdgeInsets.only(left: 16, top: 20, right: 16),
             child: Column(
               children: <Widget>[
                 const SizedBox(
@@ -34,14 +54,14 @@ class _SignupimageState extends State<Signupimage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text(
                       'Sign up',
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.w400,
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -56,7 +76,7 @@ class _SignupimageState extends State<Signupimage> {
                     ),
                     TextButton(
                         onPressed: () {
-                          Get.to(accountPage());
+                          Get.to(Signupimage());
                         },
                         child: Text(
                           'Skip now',
@@ -66,21 +86,29 @@ class _SignupimageState extends State<Signupimage> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: RaisedButton(
-                    child: _ImageView(_imgPath),
-                    onPressed: () {
-                      _openGallery();
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(150),
-                    ),
+                TextField(
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.local_phone_outlined),
+                    hintText: 'Phone',
                   ),
+                  onChanged: (value) {
+                    username = value;
+                  },
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.perm_identity),
+                    hintText: 'Student ID',
+                  ),
+                  onChanged: (value) {
+                    password = value;
+                  },
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 SizedBox(
                   height: 50,
@@ -95,58 +123,30 @@ class _SignupimageState extends State<Signupimage> {
                       ),
                     ),
                     onPressed: () {
-                      Get.to(accountPage());
+                      Get.to(Signupimage());
+
                     },
                     borderSide: const BorderSide(color: Colors.black, width: 2),
                   ),
                 ),
-                // Expanded(
-                //   child: Padding(
-                //     padding: EdgeInsets.all(20),
-                //     child: Center(
-                //       child: resultJson.length <= 0
-                //           ? Text("数据加载中...")
-                //           : Text(
-                //         resultJson,
-                //         style: const TextStyle(fontSize: 16),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                      child: resultJson.length <= 0
+                          ? Text("数据加载中...")
+                          : Text(
+                        resultJson,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  /*图片控件*/
-  Widget _ImageView(imgPath) {
-    if (imgPath == null) {
-      return Center(
-        child: Text("请选择图片或拍照"),
-      );
-    } else {
-      return Container(
-        width: 500,
-        height: 500,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: FileImage(imgPath),
-            )),
-      );
-    }
-  }
-
-  /*相册*/
-  _openGallery() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(
-          () {
-        _imgPath = image;
-      },
     );
   }
 }

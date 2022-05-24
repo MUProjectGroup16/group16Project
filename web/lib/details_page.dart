@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/model/email.dart';
+import 'package:demo/model/email.dart';
 import 'styling.dart';
-import 'package:reply/transition/expand_transition.dart';
-import 'package:reply/ui/rounded_avatar.dart';
+import 'package:demo/transition/expand_transition.dart';
+import 'package:demo/ui/rounded_avatar.dart';
 
 import 'model/email_model.dart';
 

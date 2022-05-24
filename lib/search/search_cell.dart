@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reply/search/search bar.dart';
+import 'package:demo/search/search bar.dart';
 import 'search bar.dart';
 
 class SearchCell extends StatelessWidget {

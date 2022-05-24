@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/home_page.dart';
-import 'package:reply/menu/class_model.dart';
-import 'package:reply/model/email_model.dart';
-import 'package:reply/styling.dart';
+import 'package:demo/home_page.dart';
+import 'package:demo/menu/class_model.dart';
+import 'package:demo/model/email_model.dart';
+import 'package:demo/styling.dart';
 import 'package:get/get.dart';
 import 'connect/Global.dart';
 import 'login/login.dart';

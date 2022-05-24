@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reply/details_page.dart';
-import 'package:reply/model/email.dart';
-import 'package:reply/styling.dart';
-import 'package:reply/ui/rounded_avatar.dart';
+import 'package:demo/details_page.dart';
+import 'package:demo/model/email.dart';
+import 'package:demo/styling.dart';
+import 'package:demo/ui/rounded_avatar.dart';
 
 //列表设置处理，是否已读。。。。
 class ListItem extends StatelessWidget {
@@ -20,7 +20,7 @@ class ListItem extends StatelessWidget {
       child: Dismissible(
         key: ObjectKey(email),
         dismissThresholds: const {
-          DismissDirection.startToEnd: 1,
+          DismissDirection.startToEnd: 0.4,
           DismissDirection.endToStart: 0.4,
         },
         onDismissed: (DismissDirection direction) {
@@ -60,7 +60,7 @@ class ListItem extends StatelessWidget {
               Icons.bookmark_outline_outlined,
               size: 24,
               color: AppTheme.on_primary,
-            )),
+            ),),
         secondaryBackground: Container(
             decoration: BoxDecoration(
               color: AppTheme.primary,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../transition/scale_out_transition.dart';
 import '../ui/list_item.dart';
-import 'package:reply/styling.dart';
+import 'package:demo/styling.dart';
 import '../ui/class_item.dart';
 import 'class_model.dart';
 import 'class.dart';

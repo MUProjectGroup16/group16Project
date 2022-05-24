@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reply/styling.dart';
-import 'package:reply/ui/rounded_avatar.dart';
+import 'package:demo/styling.dart';
+import 'package:demo/ui/rounded_avatar.dart';
 
 import '../menu/class.dart';
 

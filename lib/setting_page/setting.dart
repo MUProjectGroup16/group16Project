@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reply/transition/fab_fill_transition.dart';
-import 'package:reply/styling.dart';
+import 'package:demo/transition/fab_fill_transition.dart';
+import 'package:demo/styling.dart';
 import 'package:get/get.dart';
 import 'password.dart';
 import '../login/login.dart';

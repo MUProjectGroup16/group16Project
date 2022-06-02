@@ -16,15 +16,35 @@ class get3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EmailModel>(builder: (
-        BuildContext context,
-        EmailModel model,
-        Widget child,
-        ) {
+      BuildContext context,
+      EmailModel model,
+      Widget child,
+    ) {
       model.emails.clear();
-      for (int i = list.length - 1; i > 0 ; i--) {
+      for (int i = list.length - 1; i > 0; i--) {
         print(list[i]["sendTime"]);
-        model.emails.add(Email("1",list[i]["sendTime"],list[i]["title"],list[i]["content"],"avatar.png",Global.userId,false,false,false));
-        model.emails.add( Email("rubbish front end engineer", "long long ago", "大本钟下送快递", "我今天不写了，是在写不动了，易书行这是要挂路灯的，list内容路由要传递九个值，后端组加油", "avatar.png", "易书行", false, false, false),);
+        model.emails.add(Email(
+            "1",
+            list[i]["sendTime"],
+            list[i]["title"],
+            list[i]["content"],
+            "avatar.png",
+            Global.userId,
+            false,
+            false,
+            false));
+        model.emails.add(
+          Email(
+              "rubbish front end engineer",
+              "long long ago",
+              "大本钟下送快递",
+              "我今天不写了，是在写不动了，易书行这是要挂路灯的，list内容路由要传递九个值，后端组加油",
+              "avatar.png",
+              "易书行",
+              false,
+              false,
+              false),
+        );
       }
       return ListPage();
     });
@@ -44,7 +64,7 @@ class ListPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: model.emails.length + 1,
                 itemBuilder: (BuildContext context, int position) {
-                  if(position == 0){
+                  if (position == 0) {
                     return SearchCell();
                   }
                   position--;

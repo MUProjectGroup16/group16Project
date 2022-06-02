@@ -75,7 +75,6 @@ class _EditorPageState extends State<EditorPage> {
   var contect = "";
   var file = "";
 
-
   @override
   void initState() {
     getHttp();
@@ -99,7 +98,6 @@ class _EditorPageState extends State<EditorPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     final EmailModel emailModel = Provider.of<EmailModel>(context);
@@ -114,78 +112,92 @@ class _EditorPageState extends State<EditorPage> {
       _recipientAvatar = replyToEmail.avatar;
     }
 
-    return FabFillTransition(
-      source: widget.sourceRect,
-      icon: fabIcon,
-      child: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                margin: const EdgeInsets.all(4),
-                color: Color(0x0),
-                child: Material(
-                  color: AppTheme.on_primary,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        _subjectRow,
-                        _spacer,
-                        _recipientRow,
-                        _spacer,
-                        _titleRow,
-                        _spacer,
-                        _message,
-                        _spacer,
-                        _attachment,
-                      ],
+    return Container(
+      decoration: new BoxDecoration(color: AppTheme.surface_variant),
+      child: Container(
+        padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Color(0x26000000),
+            offset: Offset(0.0, 1),
+            blurRadius: 2,
+            spreadRadius: -4,
+          )
+        ]),
+        child: FabFillTransition(
+          source: widget.sourceRect,
+          icon: fabIcon,
+          child: Scaffold(
+            body: SafeArea(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: double.infinity,
+                    margin: const EdgeInsets.all(4),
+                    color: Color(0x0),
+                    child: Material(
+                      color: AppTheme.on_primary,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            _subjectRow,
+                            _spacer,
+                            _recipientRow,
+                            _spacer,
+                            _titleRow,
+                            _spacer,
+                            _message,
+                            _spacer,
+                            _attachment,
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                verticalDirection: VerticalDirection.up,
-                children: [
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          color: AppTheme.background,
-                          height: 50,
-                          child: MaterialButton(
-                              child: Row(
-                            children: [
-                              IconButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                icon: Icon(
-                                  Icons.image_outlined,
-                                  color: AppTheme.on_surface_variant,
-                                ),
-                                onPressed: () => print('aaa'),
-                              ),
-                              IconButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                icon: Icon(
-                                  Icons.insert_drive_file_outlined,
-                                  color: AppTheme.on_surface_variant,
-                                ),
-                                onPressed: () => print('aaa'),
-                              ),
-                            ],
-                          )),
-                        ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    verticalDirection: VerticalDirection.up,
+                    children: [
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              color: AppTheme.background,
+                              height: 50,
+                              child: MaterialButton(
+                                  child: Row(
+                                children: [
+                                  IconButton(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    icon: Icon(
+                                      Icons.image_outlined,
+                                      color: AppTheme.on_surface_variant,
+                                    ),
+                                    onPressed: () => print('aaa'),
+                                  ),
+                                  IconButton(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    icon: Icon(
+                                      Icons.insert_drive_file_outlined,
+                                      color: AppTheme.on_surface_variant,
+                                    ),
+                                    onPressed: () => print('aaa'),
+                                  ),
+                                ],
+                              )),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -194,7 +206,7 @@ class _EditorPageState extends State<EditorPage> {
 
   Widget get _spacer {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       child:
           Container(width: double.infinity, height: 1, color: AppTheme.outline),
     );
@@ -203,7 +215,7 @@ class _EditorPageState extends State<EditorPage> {
 //第一行 关闭和发送
   Widget get _subjectRow {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -216,7 +228,7 @@ class _EditorPageState extends State<EditorPage> {
           ),
           Expanded(
               child: Center(
-            child: Text("reply", style: Theme.of(context).textTheme.subtitle2),
+            child: Text("reply", style: AppTheme.subhead1),
           )),
           IconButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -234,7 +246,7 @@ class _EditorPageState extends State<EditorPage> {
 
   Widget get _recipientRow {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -273,15 +285,18 @@ class _EditorPageState extends State<EditorPage> {
     );
   }
 
-  Widget get _titleRow{
+  Widget get _titleRow {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       child: TextField(
         minLines: 1,
         maxLines: 1,
-        decoration: InputDecoration.collapsed(hintText: 'Title'),
+        decoration: InputDecoration.collapsed(
+            hintText: 'Title',
+            hintStyle:
+                Theme.of(context).textTheme.caption.copyWith(fontSize: 14)),
         autofocus: false,
-        style: Theme.of(context).textTheme.caption.copyWith(fontSize: 14),
+        style: AppTheme.body_large,
         onChanged: (value) {
           title = value;
         },
@@ -289,16 +304,18 @@ class _EditorPageState extends State<EditorPage> {
     );
   }
 
-
   Widget get _message {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       child: TextField(
         minLines: 23,
         maxLines: 30,
-        decoration: InputDecoration.collapsed(hintText: 'Message'),
+        decoration: InputDecoration.collapsed(
+            hintText: 'Message',
+            hintStyle:
+                Theme.of(context).textTheme.caption.copyWith(fontSize: 14)),
         autofocus: false,
-        style: Theme.of(context).textTheme.caption.copyWith(fontSize: 14),
+        style: AppTheme.body_medium,
       ),
     );
   }
@@ -321,4 +338,3 @@ class _EditorPageState extends State<EditorPage> {
     );
   }
 }
-

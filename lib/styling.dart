@@ -167,4 +167,5 @@ class AppTheme {
     fontWeight: FontWeight.normal,
     color: Color(0xDE000000),
   );
+
 }

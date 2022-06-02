@@ -134,9 +134,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     onPressed: () {
                       getHttp();
-                      Get.defaultDialog(middleText: "嗶哢嗶哢被玩壞了！"
-                          "這肯定不是嗶哢的問題！"
-                          "絕對不是！");
                       Future.delayed(Duration(seconds: 1), () {
                         Navigator.of(context).pop();
                         if (resultJson != "") {
@@ -192,19 +189,6 @@ class _LoginPageState extends State<LoginPage> {
                       Get.to(SignupPage());
                     },
                     borderSide: const BorderSide(color: Colors.black, width: 2),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: resultJson.length <= 0
-                          ? Text("数据加载中...")
-                          : Text(
-                              resultJson,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                    ),
                   ),
                 ),
               ],

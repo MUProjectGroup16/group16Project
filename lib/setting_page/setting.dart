@@ -423,7 +423,10 @@ class _SettingPageState extends State<SettingPage> {
         children: <Widget>[
           MaterialButton(
             onPressed: () {
-              Get.to(LoginPage());
+              Navigator.of(context).pushAndRemoveUntil(
+                  new MaterialPageRoute(
+                      builder: (context) => new LoginPage()),
+                      (route) => route == null);
             },
             color: AppTheme.on_primary,
             elevation: 0,

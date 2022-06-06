@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/route_manager.dart';
 import 'package:flutter/material.dart';
+import '../connect/Global.dart';
+import '../main.dart';
 
 class successful extends StatefulWidget {
   const successful({Key key}) : super(key: key);
@@ -11,8 +13,6 @@ class successful extends StatefulWidget {
 
 class _successfulState extends State<successful> {
   var resultJson = "";
-  var username = "";
-  var password = "";
 
   @override
   void initState() {
@@ -22,8 +22,14 @@ class _successfulState extends State<successful> {
   postRequest() async {
     var path = "http://173.82.212.40:8989/user/login";
     var params = {
-      "email": "123@Test2",
-      "password": "222222",
+      "identity" : false,
+      "password" : Global.password,
+      "userName" : Global.userName,
+      "email" : Global.email,
+      "phone" : Global.phone,
+      "emailVisible" : false,
+      "phoneVisible" : true,
+      "studentId" : Global.studentId,
     };
 
     Response response = await Dio().post(path, data: params);
@@ -77,8 +83,8 @@ class _successfulState extends State<successful> {
                 SizedBox(
                   height: 50,
                   width: MediaQuery.of(context).size.width - 40,
-                  child: RaisedButton(
-                    child: const Text(
+                  child: MaterialButton(
+                    child: Text(
                       "Log in",
                       style: TextStyle(
                         color: Colors.white,
@@ -88,6 +94,20 @@ class _successfulState extends State<successful> {
                     ),
                     onPressed: () {
                       postRequest();
+                      Get.defaultDialog(
+                          middleText: "嗶哢嗶哢被玩壞了！"
+                              "這肯定不是嗶哢的問題！"
+                              "絕對不是！");
+                      Future.delayed(Duration(seconds: 1), () {
+                        Navigator.of(context).pop();
+                        if (resultJson != "") {
+                          resultJson = "";
+                          Navigator.of(context).pushAndRemoveUntil(
+                              new MaterialPageRoute(
+                                  builder: (context) => new MyApp()),
+                                  (route) => route == null);
+                        }
+                      });
                     },
                     color: Colors.blue,
                   ),

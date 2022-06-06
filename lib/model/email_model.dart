@@ -1,6 +1,9 @@
+import 'package:demo/connect/Global.dart';
 import 'package:flutter/widgets.dart';
 
 import 'email.dart';
+import '../connect/dio4.dart';
+import 'package:dio/dio.dart';
 
 class EmailModel with ChangeNotifier {
 
@@ -8,19 +11,48 @@ class EmailModel with ChangeNotifier {
 
   int _currentlySelectedEmailId = -1;
 
-  // List<Email> get emails => List<Email>.unmodifiable(_emails);
-
-  void deleteEmail(int id) {
-    emails.removeAt(id);
-    notifyListeners();
-  }
-
   int get currentlySelectedEmailId => _currentlySelectedEmailId;
 
   set currentlySelectedEmailId(int value) {
     _currentlySelectedEmailId = value;
     notifyListeners();
   }
+
+  // List<Email> get emails => List<Email>.unmodifiable(_emails);
+
+  void deleteEmail(int id) async{
+    print(emails[id].id);
+    print(emails[id].message);
+    print(emails[id].subject);
+    print(id);
+
+    await HttpManager.post("http://173.82.212.40:8989/notificationCWD/insertWaste",
+        {
+          "userId": int.parse(Global.userId),
+          "notificationId": emails[id].id,
+        }
+    );
+    // notifyListeners();
+    emails.removeAt(id);
+  }
+  void saveEmail(int id) async{
+    emails[id].isRead = true;
+    print(emails[id].id);
+    print(emails[id].message);
+    print(emails[id].subject);
+    print(id);
+
+    await HttpManager.post("http://173.82.212.40:8989/notificationCWD/insertCollection",
+        {
+          "userId": int.parse(Global.userId),
+          "notificationId": emails[id].id,
+        }
+    );
+
+    // notifyListeners();
+  }
+
+
 
 
 }

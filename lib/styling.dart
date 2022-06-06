@@ -151,7 +151,7 @@ class AppTheme {
     fontSize: 24,
     letterSpacing: 0,
     fontWeight: FontWeight.normal,
-    color: AppTheme.on_surface,
+    color: AppTheme.error,
   );
 
   static const TextStyle list1 = TextStyle(

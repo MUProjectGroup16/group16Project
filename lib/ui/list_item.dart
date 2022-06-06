@@ -6,12 +6,13 @@ import 'package:demo/ui/rounded_avatar.dart';
 
 //列表设置处理，是否已读。。。。
 class ListItem extends StatelessWidget {
-  const ListItem({Key key, this.id, this.email, this.onDeleted})
+  const ListItem({Key key, this.id, this.email, this.onDeleted , this.onSave})
       : super(key: key);
 
   final int id;
   final Email email;
   final VoidCallback onDeleted;
+  final VoidCallback onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class ListItem extends StatelessWidget {
               break;
             case DismissDirection.startToEnd:
             // TODO: Handle this case.
+              onSave();
               break;
             default:
             // Do not do anything
@@ -56,11 +58,18 @@ class ListItem extends StatelessWidget {
             ),
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(left: 24),
-            child: const Icon(
+            child:  email.isRead ?
+            Icon(
+              Icons.bookmark,
+              size: 24,
+              color: AppTheme.error,
+            )  :
+            Icon(
               Icons.bookmark_outline_outlined,
               size: 24,
               color: AppTheme.on_primary,
-            ),),
+            )
+        ),
         secondaryBackground: Container(
             decoration: BoxDecoration(
               color: AppTheme.primary,
@@ -85,7 +94,7 @@ class ListItem extends StatelessWidget {
               Icons.delete_outline,
               size: 24,
               color: AppTheme.on_primary,
-            )),
+            ),),
         //没有已读的话显示文字
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),

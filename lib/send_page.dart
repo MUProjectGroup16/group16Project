@@ -43,11 +43,11 @@ class _EditorPageState extends State<SendPage> {
   bool keyboard = false;
 
   var resultJson = "";
-  int receiveuserId;
+  int receiveuserId = int.parse(Global.addcourse[0]);
   int senduserId = int.parse(Global.userId);
   var title = "";
   var contect = "";
-  var file = "";
+  var file = null;
 
   @override
   void initState() {
@@ -57,17 +57,16 @@ class _EditorPageState extends State<SendPage> {
 
   postHttp() async {
     var path = "http://173.82.212.40:8989/notification/insert";
-    var params =
-      [
-        {
-          "receiveUserId": receiveuserId,
-          "sendUserId": senduserId,
-          "notificationStatue": 1,
-          "title": title,
-          "content": contect,
-          "file": file,
-        }
-      ];
+    var params = [
+      {
+        "receiveUserId": receiveuserId,
+        "sendUserId": senduserId,
+        "notificationStatue": 1,
+        "title": title,
+        "content": contect,
+        "file": file,
+      }
+    ];
 
     Response response = await Dio().post(path, data: params);
 
@@ -75,6 +74,7 @@ class _EditorPageState extends State<SendPage> {
       resultJson = response.data;
     });
     print(resultJson);
+    print(params);
     print("1111111");
   }
 
@@ -178,7 +178,11 @@ class _EditorPageState extends State<SendPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              Global.addcourse.clear();
+              Global.addcourse.add('-1');
+              Navigator.of(context).pop();
+            },
             icon: const Icon(
               Icons.close,
               color: AppTheme.on_surface_variant,
@@ -197,8 +201,10 @@ class _EditorPageState extends State<SendPage> {
                       "絕對不是！");
               Future.delayed(Duration(seconds: 1), () {
                 Navigator.of(context).pop();
-                if (resultJson != "") {
+                if (resultJson == "Success!") {
                   resultJson = "";
+                  Global.addcourse.clear();
+                  Global.addcourse.add('-1');
                   Navigator.of(context).pushAndRemoveUntil(
                       new MaterialPageRoute(
                           builder: (context) => new HomePage()),
@@ -248,6 +254,7 @@ class _EditorPageState extends State<SendPage> {
 
                 IconButton(
                   onPressed: () {
+                    print(Global.addcourse[0]);
                     Get.to(dio3());
                   },
                   icon: Icon(Icons.add_circle_outline),
@@ -261,9 +268,10 @@ class _EditorPageState extends State<SendPage> {
   }
 
   Widget get _claas {
-    if (Global.addcourse.length <= 0) {
+    if (Global.addcourse.length <= 1) {
       return Container();
     } else {
+      receiveuserId = Global.addcourse[0];
       return RawChip(
         label: Text(Global.addcourse[1].toString()),
         onDeleted: () {
@@ -271,6 +279,7 @@ class _EditorPageState extends State<SendPage> {
           setState(() {
             receiveuserId = Global.addcourse[0];
             Global.addcourse.clear();
+            Global.addcourse.add('-1');
           });
         },
         deleteIcon: Icon(Icons.close_outlined),

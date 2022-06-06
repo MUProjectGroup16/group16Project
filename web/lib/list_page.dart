@@ -26,6 +26,7 @@ class ListPage extends StatelessWidget {
                     id: position + 1,
                     email: model.emails[position],
                     onDeleted: () => model.deleteEmail(position),
+                    onSave: ()=>model.saveEmail(position),
                   );
                 },
               ),

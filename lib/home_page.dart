@@ -16,6 +16,7 @@ import 'package:demo/menu/course_management.dart.dart';
 import 'connect/dio2.dart';
 import 'search/search bar.dart';
 import 'user_page.dart';
+import 'package:demo/setting_page/trash.dart';
 
 //主界面
 class HomePage extends StatefulWidget {
@@ -337,7 +338,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Get.to(SettingPage());
+                      Get.to(Trash());
                       _pc.close();
                       up = true;
                     },

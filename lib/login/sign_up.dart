@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get/route_manager.dart';
 import 'sign_up_image.dart';
+import '../connect/Global.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key key}) : super(key: key);
@@ -11,28 +12,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  var resultJson = "";
-  var username = "";
-  var password = "";
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  postRequest() async {
-    var path = "http://173.82.212.40:8989/user/login";
-    var params = {
-      "email": "123@Test2",
-      "password": "222222",
-    };
-
-    Response response = await Dio().post(path, data: params);
-
-    this.setState(() {
-      resultJson = response.toString();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +71,7 @@ class _SignupPageState extends State<SignupPage> {
                     hintText: 'Phone',
                   ),
                   onChanged: (value) {
-                    username = value;
+                    Global.phone = value;
                   },
                 ),
                 const SizedBox(
@@ -104,7 +83,7 @@ class _SignupPageState extends State<SignupPage> {
                     hintText: 'Student ID',
                   ),
                   onChanged: (value) {
-                    password = value;
+                    Global.studentId = value;
                   },
                 ),
                 SizedBox(
@@ -127,19 +106,6 @@ class _SignupPageState extends State<SignupPage> {
 
                     },
                     borderSide: const BorderSide(color: Colors.black, width: 2),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: resultJson.length <= 0
-                          ? Text("数据加载中...")
-                          : Text(
-                        resultJson,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
                   ),
                 ),
               ],

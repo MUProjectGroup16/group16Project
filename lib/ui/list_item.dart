@@ -29,7 +29,7 @@ class ListItem extends StatelessWidget {
               onDeleted();
               break;
             case DismissDirection.startToEnd:
-              // TODO: Handle this case.
+            // TODO: Handle this case.
               break;
             default:
             // Do not do anything
@@ -37,31 +37,30 @@ class ListItem extends StatelessWidget {
         },
         //左右滑动
         background: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFFFBA37),
-            border: Border(
-              top: BorderSide(
-                width: 4,
-                color: AppTheme.surface_variant,
-              ),
-              left: BorderSide(
-                width: 4,
-                color: AppTheme.surface_variant,
-              ),
-              bottom: BorderSide(
-                width: 4,
-                color: AppTheme.surface_variant,
+            decoration: BoxDecoration(
+              color: Color(0xFFFFBA37),
+              border: Border(
+                top: BorderSide(
+                  width: 4,
+                  color: AppTheme.surface_variant,
+                ),
+                left: BorderSide(
+                  width: 4,
+                  color: AppTheme.surface_variant,
+                ),
+                bottom: BorderSide(
+                  width: 4,
+                  color: AppTheme.surface_variant,
+                ),
               ),
             ),
-          ),
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(left: 24),
-          child: const Icon(
-            Icons.bookmark_outline_outlined,
-            size: 24,
-            color: AppTheme.on_primary,
-          ),
-        ),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 24),
+            child: const Icon(
+              Icons.bookmark_outline_outlined,
+              size: 24,
+              color: AppTheme.on_primary,
+            ),),
         secondaryBackground: Container(
             decoration: BoxDecoration(
               color: AppTheme.primary,
@@ -88,15 +87,7 @@ class ListItem extends StatelessWidget {
               color: AppTheme.on_primary,
             )),
         //没有已读的话显示文字
-        child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Color(0x26000000),
-              offset: Offset(0.0, 1),
-              blurRadius: 2,
-              spreadRadius: -3,
-            )
-          ]),
+        child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Material(
             color: AppTheme.on_primary,
@@ -199,7 +190,7 @@ class ListItem extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           children: List<Widget>.generate(
             5,
-            (int index) {
+                (int index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 2),
                 child: Image.asset(

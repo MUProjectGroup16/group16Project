@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'successful.dart';
+import '../connect/Global.dart';
 
 class accountPage extends StatefulWidget {
   const accountPage({Key key}) : super(key: key);
@@ -11,29 +12,6 @@ class accountPage extends StatefulWidget {
 }
 
 class _accountPageState extends State<accountPage> {
-  var resultJson = "";
-  var username = "";
-  var password = "";
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  postRequest() async {
-    var path = "http://173.82.212.40:8989/user/login";
-    var params = {
-      "email": "123@Test2",
-      "password": "222222",
-    };
-
-    Response response = await Dio().post(path, data: params);
-
-    this.setState(() {
-      resultJson = response.toString();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +64,7 @@ class _accountPageState extends State<accountPage> {
                     hintText: 'Email',
                   ),
                   onChanged: (value) {
-                    username = value;
+                    Global.email = value;
                   },
                 ),
                 const SizedBox(
@@ -98,7 +76,7 @@ class _accountPageState extends State<accountPage> {
                     hintText: 'Name',
                   ),
                   onChanged: (value) {
-                    password = value;
+                    Global.userName = value;
                   },
                 ),
                 const SizedBox(
@@ -109,9 +87,9 @@ class _accountPageState extends State<accountPage> {
                     icon: Icon(Icons.lock_open),
                     hintText: 'Password',
                   ),
-                  onChanged: (value) {
-                    password = value;
-                  },
+                  // onChanged: (value) {
+                  //   password = value;
+                  // },
                 ),
                 const SizedBox(
                   height: 8,
@@ -122,7 +100,7 @@ class _accountPageState extends State<accountPage> {
                     hintText: 'Repeat Password',
                   ),
                   onChanged: (value) {
-                    password = value;
+                    Global.password = value;
                   },
                 ),
                 SizedBox(
@@ -145,19 +123,6 @@ class _accountPageState extends State<accountPage> {
 
                     },
                     borderSide: const BorderSide(color: Colors.black, width: 2),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: resultJson.length <= 0
-                          ? Text("数据加载中...")
-                          : Text(
-                        resultJson,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ),
                   ),
                 ),
               ],

@@ -166,14 +166,15 @@ class _ManageState extends State<ManagePage> {
                 ),
                 IconButton(
                   icon: Icon(Icons.send),
-                  onPressed: () {
+                  onPressed: () async{
                     for (int i = 0; i < caht2.length; i++) {
                       if (caht2[i].ischoose) {
+                        Global.addcourse.clear();
                         Global.addcourse.add(caht2[i].code);
                         Global.addcourse.add(caht2[i].id);
                       }
                     }
-                    Navigator.of(context).pop();
+                    await Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -193,6 +194,9 @@ class _ManageState extends State<ManagePage> {
       onChanged: (bool value) {
         setState(() {
           caht2[index].ischoose = value;
+          Global.addcourse.clear();
+          Global.addcourse.add(caht2[index].code);
+          Global.addcourse.add(caht2[index].id);
         });
       },
     );

@@ -142,6 +142,7 @@ class _SearchPageState extends State<SearchPage> {
           id: index,
           email: model.emails[index],
           onDeleted: () => model.deleteEmail(index),
+          onSave: ()=>model.saveEmail(index),
         );
       },
     );

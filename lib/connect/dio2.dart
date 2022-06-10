@@ -16,10 +16,12 @@ class dio2 extends StatefulWidget {
 
 class _dio2State extends State<dio2> {
   List list2 = [];
+  List list3 = [];
 
   @override
   void initState(){
     getHttp();
+    get1Http();
     super.initState();
   }
   getHttp() async{
@@ -32,10 +34,19 @@ class _dio2State extends State<dio2> {
       }
     });
   }
-
+  get1Http() async{
+    String a = Global.userId;
+    var path = "http://173.82.212.40:8989/notification/selectByReceiverCollection?receiveUserId=$a";
+    Response res = await Dio().get(path);
+    this.setState(() {
+      if (res.data != "data not exits") {
+        list3 = jsonDecode(res.data);
+      }
+    });
+  }
 
   Widget build(BuildContext context) {
-    return get3(list2);
+    return get3(list2,list3);
 
   }
 }

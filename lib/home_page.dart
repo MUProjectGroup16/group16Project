@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:demo/editor_page.dart';
-import 'package:demo/list_page.dart';
-import 'package:demo/model/email.dart';
 import 'package:demo/model/email_model.dart';
 import 'package:demo/send_page.dart';
 import 'package:demo/styling.dart';
@@ -14,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:demo/setting_page/setting.dart';
 import 'package:demo/menu/course_management.dart.dart';
 import 'connect/dio2.dart';
-import 'search/search bar.dart';
 import 'user_page.dart';
 import 'package:demo/setting_page/trash.dart';
 
@@ -63,7 +60,6 @@ class _HomePageState extends State<HomePage> {
           backdropEnabled: true,
           color: Color(0xFF001E30),
         ),
-
         //底部导航栏
         bottomNavigationBar: _bottomNavigation,
         //浮动按钮

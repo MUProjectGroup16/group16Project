@@ -19,34 +19,65 @@ class ListItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: Dismissible(
-        key: ObjectKey(email),
-        dismissThresholds: const {
-          DismissDirection.startToEnd: 0.4,
-          DismissDirection.endToStart: 0.4,
-        },
-        onDismissed: (DismissDirection direction) {
-          switch (direction) {
-            case DismissDirection.endToStart:
-              onDeleted();
-              break;
-            case DismissDirection.startToEnd:
+          key: ObjectKey(email),
+          dismissThresholds: const {
+            DismissDirection.startToEnd: 0.4,
+            DismissDirection.endToStart: 0.4,
+          },
+          onDismissed: (DismissDirection direction) {
+            switch (direction) {
+              case DismissDirection.endToStart:
+                onDeleted();
+                break;
+              case DismissDirection.startToEnd:
               // TODO: Handle this case.
-              onSave();
-              break;
-            default:
-            // Do not do anything
-          }
-        },
-        //左右滑动
-        background: Container(
+                onSave();
+                break;
+              default:
+              // Do not do anything
+            }
+          },
+          //左右滑动
+          background: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFFFBA37),
+                border: Border(
+                  top: BorderSide(
+                    width: 4,
+                    color: AppTheme.surface_variant,
+                  ),
+                  left: BorderSide(
+                    width: 4,
+                    color: AppTheme.surface_variant,
+                  ),
+                  bottom: BorderSide(
+                    width: 4,
+                    color: AppTheme.surface_variant,
+                  ),
+                ),
+              ),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 24),
+              child: email.isRead
+                  ? Icon(
+                Icons.bookmark,
+                size: 24,
+                color: AppTheme.error,
+              )
+                  : Icon(
+                Icons.bookmark_outline_outlined,
+                size: 24,
+                color: AppTheme.on_primary,
+              )),
+          secondaryBackground: Container(
             decoration: BoxDecoration(
-              color: Color(0xFFFFBA37),
+              color: AppTheme.primary,
               border: Border(
                 top: BorderSide(
                   width: 4,
                   color: AppTheme.surface_variant,
                 ),
-                left: BorderSide(
+                right: BorderSide(
                   width: 4,
                   color: AppTheme.surface_variant,
                 ),
@@ -56,81 +87,65 @@ class ListItem extends StatelessWidget {
                 ),
               ),
             ),
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 24),
-            child: email.isRead
-                ? Icon(
-                    Icons.bookmark,
-                    size: 24,
-                    color: AppTheme.error,
-                  )
-                : Icon(
-                    Icons.bookmark_outline_outlined,
-                    size: 24,
-                    color: AppTheme.on_primary,
-                  )),
-        secondaryBackground: Container(
-          decoration: BoxDecoration(
-            color: AppTheme.primary,
-            border: Border(
-              top: BorderSide(
-                width: 4,
-                color: AppTheme.surface_variant,
-              ),
-              right: BorderSide(
-                width: 4,
-                color: AppTheme.surface_variant,
-              ),
-              bottom: BorderSide(
-                width: 4,
-                color: AppTheme.surface_variant,
-              ),
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: const Icon(
+              Icons.delete_outline,
+              size: 24,
+              color: AppTheme.on_primary,
             ),
           ),
-          alignment: Alignment.centerRight,
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: const Icon(
-            Icons.delete_outline,
-            size: 24,
-            color: AppTheme.on_primary,
-          ),
-        ),
-        //没有已读的话显示文字
-        child:Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Material(
-                color: AppTheme.on_primary,
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        _header,
-                        // if (!email.isRead)
-                        const SizedBox(height: 8),
-                        // if (!email.isRead)
-                        _emailPreview,
-                      ],
+          //没有已读的话显示文字
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Color(0x26000000),
+                    offset: Offset(0.0, 1),
+                    blurRadius: 2,
+                    spreadRadius: -3,
+                  )
+                ]),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Material(
+                    color: AppTheme.on_primary,
+                    child: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            _header,
+                            // if (!email.isRead)
+                            const SizedBox(height: 8),
+                            // if (!email.isRead)
+                            _emailPreview,
+                          ],
+                        ),
+                      ),
+                      //点击跳转
+                      onTap: () =>
+                          Navigator.of(context).push<void>(
+                            DetailsPage.route(context, id, email),
+                          ),
                     ),
-                  ),
-                  //点击跳转
-                  onTap: () => Navigator.of(context).push<void>(
-                    DetailsPage.route(context, id, email),
                   ),
                 ),
               ),
-            ),
-            Row(
-               children: [
-                 SizedBox(width: 4,),
-                email.isRead ? Icon(Icons.bookmark_rounded,color: AppTheme.error,size: 16,): SizedBox(width: 0,),
-              ],
-            ),
-          ],
-        )
+              Row(
+                children: [
+                  SizedBox(width: 4,),
+                  email.isRead
+                      ? Icon(
+                    Icons.bookmark_rounded, color: AppTheme.error, size: 16,)
+                      : SizedBox(width: 0,),
+                ],
+              ),
+            ],
+          )
       ),
     );
   }
@@ -147,7 +162,7 @@ class ListItem extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: [
-                  email.isRead ? SizedBox(width: 16,):SizedBox(width: 0,),
+                  email.isRead ? SizedBox(width: 16,) : SizedBox(width: 0,),
                   Text(
                     '${email.sender} — ${email.time}',
                     style: AppTheme.list1,
@@ -213,7 +228,7 @@ class ListItem extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           children: List<Widget>.generate(
             5,
-            (int index) {
+                (int index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 2),
                 child: Image.asset(

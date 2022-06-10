@@ -168,4 +168,8 @@ class AppTheme {
     color: Color(0xDE000000),
   );
 
+  static const TextStyle headline1 = TextStyle(
+    fontSize: 36,
+    fontWeight: FontWeight.w500,
+  );
 }

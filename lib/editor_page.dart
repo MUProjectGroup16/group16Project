@@ -7,6 +7,7 @@ import 'package:demo/transition/fab_fill_transition.dart';
 
 import 'model/email.dart';
 import 'package:dio/dio.dart';
+import 'connect/Global.dart';
 
 //编辑页
 ///回复

@@ -16,6 +16,7 @@ class dio5 extends StatefulWidget {
 
 class _dio5State extends State<dio5> {
   List list2 = [];
+  List list3 = [];
 
   @override
   void initState(){
@@ -35,7 +36,7 @@ class _dio5State extends State<dio5> {
 
 
   Widget build(BuildContext context) {
-    return get3(list2);
+    return get3(list2,list3);
 
   }
 }

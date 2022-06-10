@@ -6,12 +6,13 @@ import 'package:demo/ui/rounded_avatar.dart';
 
 //列表设置处理，是否已读。。。。
 class ListItem extends StatelessWidget {
-  const ListItem({Key key, this.id, this.email, this.onDeleted})
+  const ListItem({Key key, this.id, this.email, this.onDeleted, this.onSave})
       : super(key: key);
 
   final int id;
   final Email email;
   final VoidCallback onDeleted;
+  final VoidCallback onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,8 @@ class ListItem extends StatelessWidget {
               onDeleted();
               break;
             case DismissDirection.startToEnd:
-            // TODO: Handle this case.
+              // TODO: Handle this case.
+              onSave();
               break;
             default:
             // Do not do anything
@@ -56,67 +58,83 @@ class ListItem extends StatelessWidget {
             ),
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(left: 24),
-            child: const Icon(
-              Icons.bookmark_outline_outlined,
-              size: 24,
-              color: AppTheme.on_primary,
-            ),),
+            child: email.isRead
+                ? Icon(
+                    Icons.bookmark,
+                    size: 24,
+                    color: AppTheme.error,
+                  )
+                : Icon(
+                    Icons.bookmark_outline_outlined,
+                    size: 24,
+                    color: AppTheme.on_primary,
+                  )),
         secondaryBackground: Container(
-            decoration: BoxDecoration(
-              color: AppTheme.primary,
-              border: Border(
-                top: BorderSide(
-                  width: 4,
-                  color: AppTheme.surface_variant,
-                ),
-                right: BorderSide(
-                  width: 4,
-                  color: AppTheme.surface_variant,
-                ),
-                bottom: BorderSide(
-                  width: 4,
-                  color: AppTheme.surface_variant,
-                ),
+          decoration: BoxDecoration(
+            color: AppTheme.primary,
+            border: Border(
+              top: BorderSide(
+                width: 4,
+                color: AppTheme.surface_variant,
               ),
-            ),
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: const Icon(
-              Icons.delete_outline,
-              size: 24,
-              color: AppTheme.on_primary,
-            )),
-        //没有已读的话显示文字
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Material(
-            color: AppTheme.on_primary,
-            child: InkWell(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _header,
-                    // if (!email.isRead)
-                    const SizedBox(height: 8),
-                    // if (!email.isRead)
-                    _emailPreview,
-                  ],
-                ),
+              right: BorderSide(
+                width: 4,
+                color: AppTheme.surface_variant,
               ),
-              //点击跳转
-              onTap: () => Navigator.of(context).push<void>(
-                DetailsPage.route(context, id, email),
+              bottom: BorderSide(
+                width: 4,
+                color: AppTheme.surface_variant,
               ),
             ),
           ),
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: const Icon(
+            Icons.delete_outline,
+            size: 24,
+            color: AppTheme.on_primary,
+          ),
         ),
+        //没有已读的话显示文字
+        child:Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Material(
+                color: AppTheme.on_primary,
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _header,
+                        // if (!email.isRead)
+                        const SizedBox(height: 8),
+                        // if (!email.isRead)
+                        _emailPreview,
+                      ],
+                    ),
+                  ),
+                  //点击跳转
+                  onTap: () => Navigator.of(context).push<void>(
+                    DetailsPage.route(context, id, email),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+               children: [
+                 SizedBox(width: 4,),
+                email.isRead ? Icon(Icons.bookmark_rounded,color: AppTheme.error,size: 16,): SizedBox(width: 0,),
+              ],
+            ),
+          ],
+        )
       ),
     );
   }
 
-  //已读颜色变淡
   Widget get _header {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -127,9 +145,14 @@ class ListItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                '${email.sender} — ${email.time}',
-                style: AppTheme.list1,
+              Row(
+                children: [
+                  email.isRead ? SizedBox(width: 16,):SizedBox(width: 0,),
+                  Text(
+                    '${email.sender} — ${email.time}',
+                    style: AppTheme.list1,
+                  ),
+                ],
               ),
               const SizedBox(height: 4),
               Text(
@@ -190,7 +213,7 @@ class ListItem extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           children: List<Widget>.generate(
             5,
-                (int index) {
+            (int index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 2),
                 child: Image.asset(

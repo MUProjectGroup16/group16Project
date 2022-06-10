@@ -48,7 +48,7 @@ class EmailModel with ChangeNotifier {
           "notificationId": emails[id].id,
         }
     );
-
+    emails.removeAt(id);
     // notifyListeners();
   }
 

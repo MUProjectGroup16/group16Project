@@ -1,3 +1,4 @@
+import 'package:demo/login/login.dart';
 import 'package:dio/dio.dart';
 import 'package:get/route_manager.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _successfulState extends State<successful> {
   }
 
   postRequest() async {
-    var path = "http://173.82.212.40:8989/user/login";
+    var path = "http://173.82.212.40:8989/user/insert";
     var params = {
       "identity": false,
       "password": Global.password,
@@ -30,7 +31,7 @@ class _successfulState extends State<successful> {
       "phone": Global.phone,
       "emailVisible": false,
       "phoneVisible": true,
-      "studentId": Global.studentId,
+      "studentId": Global.studentId
     };
 
     Response response = await Dio().post(path, data: params);
@@ -38,6 +39,8 @@ class _successfulState extends State<successful> {
     this.setState(() {
       resultJson = response.toString();
     });
+    print(resultJson);
+    print("1111111");
   }
 
   @override
@@ -120,13 +123,17 @@ class _successfulState extends State<successful> {
                         onPressed: () {
                           postRequest();
                           Future.delayed(Duration(seconds: 1), () {
-                            Navigator.of(context).pop();
-                            if (resultJson != "") {
+                            if (resultJson == "Success!") {
                               resultJson = "";
                               Navigator.of(context).pushAndRemoveUntil(
                                   new MaterialPageRoute(
-                                      builder: (context) => new MyApp()),
-                                  (route) => route == null);
+                                      builder: (context) => new LoginPage()),
+                                      (route) => route == null);
+                            }
+                            else{
+                              Get.defaultDialog(middleText: "嗶哢嗶哢被玩壞了！"
+                                  "這肯定不是嗶哢的問題！"
+                                  "絕對不是！");
                             }
                           });
                         },

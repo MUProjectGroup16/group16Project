@@ -197,7 +197,7 @@ class _CreateACourseState extends State<EditCoursesPage> {
               ),
               Text(
                 'Delete?',
-                style: AppTheme.dialog_main,
+                style: AppTheme.dialog_main.copyWith(color: AppTheme.on_surface),
               ),
               SizedBox(
                 height: 20,
@@ -267,7 +267,7 @@ class _CreateACourseState extends State<EditCoursesPage> {
         child: Center(
           child: Text(
             'Delete',
-            style: AppTheme.body1_red,
+            style: AppTheme.body1_red.copyWith(color: AppTheme.on_surface),
           ),
         ),
       ),

@@ -30,6 +30,7 @@ class AppTheme {
   static const Color surface_variant = Color(0xFFDDE3EA);
   static const Color on_surface_variant = Color(0xFF41474D);
   static const Color outline = Color(0xFF72787E);
+  static const Color highlight = Color(0xFFFFBA37);
 
   static const Color surface_1 = Color(0xFFFEFEFE);
   static const Color surface_2 = Color(0xFFEDF2F8);

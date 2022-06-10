@@ -14,6 +14,7 @@ import 'package:demo/menu/course_management.dart.dart';
 import 'connect/dio2.dart';
 import 'user_page.dart';
 import 'package:demo/setting_page/trash.dart';
+import 'package:demo/setting_page/save.dart';
 
 //主界面
 class HomePage extends StatefulWidget {
@@ -270,7 +271,7 @@ class _HomePageState extends State<HomePage> {
 
                   MaterialButton(
                     onPressed: () {
-                      Get.to(SettingPage());
+                      Get.to(HomePage());
                       _pc.close();
                       up = true;
                     },
@@ -288,21 +289,21 @@ class _HomePageState extends State<HomePage> {
                         Icon(
                           Icons.inbox,
                           size: 24,
-                          color: AppTheme.on_primary,
+                          color: AppTheme.highlight,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width - 350,
                         ),
                         Text(
                           'Inbox',
-                          style: AppTheme.menu,
+                          style: AppTheme.menu.copyWith(color: AppTheme.highlight),
                         ),
                       ],
                     ),
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Get.to(SettingPage());
+                      Get.to(Save());
                       _pc.close();
                       up = true;
                     },

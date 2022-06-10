@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:demo/setting_page/setting.dart';
 import 'package:demo/styling.dart';
 import 'package:demo/home_page.dart';
 import 'course_management.dart.dart';
+import 'package:dio/dio.dart';
+import 'package:demo/connect/Global.dart';
 
 class CreateACoursePage extends StatefulWidget {
   const CreateACoursePage({Key key}) : super(key: key);
@@ -18,6 +20,30 @@ class _CreateACourseState extends State<CreateACoursePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController wordController = TextEditingController();
   var flag5 = true;
+
+  var resultJson = "";
+  var name = "";
+  var id = "";
+
+  @override
+  void initState() {
+    getHttp();
+    super.initState();
+  }
+
+  getHttp() async {
+    var path = "http://173.82.212.40:8989/course/insert";
+    var params = {
+      "courseName":name,
+      "courseCode":id,
+    };
+    Response response = await Dio().post(path, data: params);
+
+    setState(() {
+      resultJson = response.data;
+    });
+    print(resultJson);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +169,9 @@ class _CreateACourseState extends State<CreateACoursePage> {
       child: Column(
         children: [
           TextField(
+            onChanged: (value) {
+              id = value;
+            },
             controller: nameController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -164,6 +193,9 @@ class _CreateACourseState extends State<CreateACoursePage> {
           ),
           TextField(
             controller: wordController,
+            onChanged: (value) {
+              name = value;
+            },
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: 'Class Name',
@@ -236,7 +268,7 @@ class _CreateACourseState extends State<CreateACoursePage> {
                 ),
                 Text(
                   'Finished',
-                  style: AppTheme.dialog_main,
+                  style: AppTheme.dialog_main.copyWith(color: AppTheme.on_surface),
                 ),
                 SizedBox(
                   height: 20,
@@ -260,7 +292,13 @@ class _CreateACourseState extends State<CreateACoursePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(CourseManagementPage());
+                      getHttp();
+                      if(resultJson == "Success!"){
+                        Navigator.of(context)..pop()..pop();
+                      }
+                      else{
+                        Navigator.of(context).pop();
+                      }
                     },
                     child: Text(
                       'OK',

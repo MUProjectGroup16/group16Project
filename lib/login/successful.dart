@@ -140,19 +140,6 @@ class _successfulState extends State<successful> {
                         color: AppTheme.primary,
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: resultJson.length <= 0
-                              ? Text("数据加载中...")
-                              : Text(
-                                  resultJson,
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

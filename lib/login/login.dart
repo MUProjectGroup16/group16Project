@@ -153,13 +153,15 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           getHttp();
                           Future.delayed(Duration(seconds: 1), () {
-                            Navigator.of(context).pop();
                             if (resultJson != "") {
                               resultJson = "";
                               Navigator.of(context).pushAndRemoveUntil(
                                   new MaterialPageRoute(
                                       builder: (context) => new HomePage()),
                                   (route) => route == null);
+                            }
+                            else{
+                              Get.defaultDialog(middleText: "The email or the password is incorrect");
                             }
                           });
                         },

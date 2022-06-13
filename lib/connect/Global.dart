@@ -11,4 +11,5 @@ class Global{
   static bool emailVisible = false;
   static bool phoneVisible = false;
   static String studentId = '';
+  static String url = 'http://173.82.212.40:8989';
 }

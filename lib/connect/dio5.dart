@@ -25,7 +25,8 @@ class _dio5State extends State<dio5> {
   }
   getHttp() async{
     String a = Global.userId;
-    var path = "http://173.82.212.40:8989/notification/selectByReceiverWaste?receiveUserId=$a";
+    String url = Global.url;
+    var path = "$url/notification/selectByReceiverWaste?receiveUserId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {

@@ -22,12 +22,13 @@ class EmailModel with ChangeNotifier {
   // List<Email> get emails => List<Email>.unmodifiable(_emails);
 
   void deleteEmail(int id) async{
+    String url = Global.url;
     print(emails[id].id);
     print(emails[id].message);
     print(emails[id].subject);
     print(id);
 
-    await HttpManager.post("http://173.82.212.40:8989/notificationCWD/insertWaste",
+    await HttpManager.post("$url/notificationCWD/insertWaste",
         {
           "userId": int.parse(Global.userId),
           "notificationId": emails[id].id,
@@ -37,13 +38,14 @@ class EmailModel with ChangeNotifier {
     emails.removeAt(id);
   }
   void saveEmail(int id) async{
+    String url = Global.url;
     emails[id].isRead = true;
     print(emails[id].id);
     print(emails[id].message);
     print(emails[id].subject);
     print(id);
 
-    await HttpManager.post("http://173.82.212.40:8989/notificationCWD/insertCollection",
+    await HttpManager.post("$url/notificationCWD/insertCollection",
         {
           "userId": int.parse(Global.userId),
           "notificationId": emails[id].id,

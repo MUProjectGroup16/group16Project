@@ -28,12 +28,12 @@ class get3 extends StatelessWidget {
         for (int i = list1.length - 1; i > 0; i--) {
           model.emails.add(
             Email(
-                list1[i]["sendUserId"].toString(),
+                list1[i]["file"],
                 list1[i]["sendTime"],
                 list1[i]["title"],
                 list1[i]["content"],
                 "avatar.png",
-                Global.userId,
+                Global.userName1,
                 list1[i]["notificationId"],
                 false,
                 false,
@@ -45,12 +45,12 @@ class get3 extends StatelessWidget {
         for (int i = list.length - 1; i > 0; i--) {
           model.emails.add(
             Email(
-                list[i]["sendUserId"].toString(),
+                list[i]["file"],
                 list[i]["sendTime"],
                 list[i]["title"],
                 list[i]["content"],
                 "avatar.png",
-                Global.userId,
+                Global.userName1,
                 list[i]["notificationId"],
                 false,
                 false,
@@ -71,36 +71,42 @@ class ListPage extends StatelessWidget {
       builder: (BuildContext context, EmailModel model, Widget child) {
         return ScaleOutTransition(
           child: Material(
-            child: Container(
-              decoration: new BoxDecoration(color: AppTheme.surface_variant),
-              child: RefreshIndicator(
-                onRefresh: _onrefresh,
-                child: ListView.builder(
-                  itemCount: model.emails.length + 1,
-                  itemBuilder: (BuildContext context, int position) {
-                    if (position == 0) {
-                      return SearchCell();
-                    }
-                    if(model.emails.length == 0){
-                      return Center(
-                          child:Image.asset(
+            color: AppTheme.surface_variant,
+            child: Padding(
+
+              padding: EdgeInsets.only(bottom: 55),
+              child: Container(
+                decoration: new BoxDecoration(color: AppTheme.surface_variant),
+                child: RefreshIndicator(
+                  onRefresh: _onrefresh,
+                  child: ListView.builder(
+                    itemCount: model.emails.length + 1,
+                    itemBuilder: (BuildContext context, int position) {
+                      if (position == 0) {
+                        return SearchCell();
+                      }
+                      if (model.emails.length == 0) {
+                        return Center(
+                          child: Image.asset(
                             'assets/images/main-none.png',
                           ),
-                      );
-                    }
-                    if (position > 0) {
-                      position--;
-                      return ListItem(
-                        id: position,
-                        email: model.emails[position],
-                        onDeleted: () => model.deleteEmail(position),
-                        onSave: () => model.saveEmail(position),
-                      );
-                    } else {
-                      return Container(color: Colors.black,);
-                    }
-
-                  },
+                        );
+                      }
+                      if (position > 0) {
+                        position--;
+                        return ListItem(
+                          id: position,
+                          email: model.emails[position],
+                          onDeleted: () => model.deleteEmail(position),
+                          onSave: () => model.saveEmail(position),
+                        );
+                      } else {
+                        return Container(
+                          color: Colors.black,
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
             ),

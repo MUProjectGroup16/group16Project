@@ -17,6 +17,8 @@ class dio2 extends StatefulWidget {
 class _dio2State extends State<dio2> {
   List list2 = [];
   List list3 = [];
+  List list4 = [];
+  List list5 = [];
 
   @override
   void initState(){
@@ -27,7 +29,8 @@ class _dio2State extends State<dio2> {
   }
   getHttp() async{
     String a = Global.userId;
-    var path = "http://173.82.212.40:8989/notification/selectByReceiver?receiveUserId=$a";
+    String url = Global.url;
+    var path = "$url/notification/selectByReceiver?receiveUserId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {
@@ -37,7 +40,8 @@ class _dio2State extends State<dio2> {
   }
   get1Http() async{
     String a = Global.userId;
-    var path = "http://173.82.212.40:8989/notification/selectByReceiverCollection?receiveUserId=$a";
+    String url = Global.url;
+    var path = "$url/notification/selectByReceiverCollection?receiveUserId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {
@@ -45,9 +49,10 @@ class _dio2State extends State<dio2> {
       }
     });
   }
-  get2Http() async{
+  get2Http() async {
     String a = Global.userId;
-    var path = "http://173.82.212.40:8989/user/select?userId=$a";
+    String url = Global.url;
+    var path = "$url/user/select?userId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {
@@ -56,6 +61,7 @@ class _dio2State extends State<dio2> {
       }
     });
   }
+
 
   Widget build(BuildContext context) {
     return get3(list2,list3);

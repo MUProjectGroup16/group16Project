@@ -24,7 +24,8 @@ class _dio1State extends State<dio1> {
   }
   getHttp() async{
     String a = Global.userId;
-    var path = "http://173.82.212.40:8989/course/selectCoursesByUser?userId=$a";
+    String url = Global.url;
+    var path = "$url/course/selectCoursesByUser?userId=$a";
     Response res = await Dio().get(path);
     this.setState(() {
       if (res.data != "data not exits") {

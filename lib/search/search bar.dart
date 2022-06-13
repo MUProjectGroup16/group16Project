@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
                       if (chat != null) {
                         // 循环检索
                         for (int i = 0; i < model.emails.length; i++) {
-                          String name = model.emails[i].sender;
+                          String name = model.emails[i].message;
                           if ((name ?? "").contains(text)) {
                             chat.add(model.emails[i]);
                           }

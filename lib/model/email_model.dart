@@ -7,7 +7,8 @@ import 'package:dio/dio.dart';
 
 class EmailModel with ChangeNotifier {
 
-  final List<Email> emails = <Email>[];
+  final List<Email> emails = <Email>[
+  ];
 
   int _currentlySelectedEmailId = -1;
 

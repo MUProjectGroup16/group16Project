@@ -1,3 +1,4 @@
+import 'package:demo/connect/Global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -119,7 +120,7 @@ class _HomeContentState extends State<HomeContent> {
     return Container(
       padding: EdgeInsets.only(left: 16),
       child: Text(
-        'Student name',
+        Global.studentId != '0' ? Global.userName1 : "tourist",
         style: TextStyle(fontSize: 18),
       ),
     );

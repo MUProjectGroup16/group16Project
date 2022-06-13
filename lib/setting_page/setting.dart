@@ -5,6 +5,7 @@ import 'package:demo/styling.dart';
 import 'package:get/get.dart';
 import 'password.dart';
 import '../login/login.dart';
+import '../connect/Global.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key key}) : super(key: key);
@@ -179,7 +180,7 @@ class _SettingPageState extends State<SettingPage> {
           child: TextField(
             textAlign: TextAlign.end,
             decoration: InputDecoration.collapsed(
-                hintText: "ysx"
+                hintText: Global.userName1
             ),
           ),
         ),
@@ -208,7 +209,7 @@ class _SettingPageState extends State<SettingPage> {
           child: TextField(
             textAlign: TextAlign.end,
             decoration: InputDecoration.collapsed(
-                hintText: "ysx"
+                hintText: Global.email1
             ),
           ),
         ),
@@ -237,7 +238,7 @@ class _SettingPageState extends State<SettingPage> {
           child: TextField(
             textAlign: TextAlign.end,
             decoration: InputDecoration.collapsed(
-                hintText: "ysx"
+                hintText: Global.userId
             ),
           ),
         ),

@@ -271,9 +271,9 @@ class _HomePageState extends State<HomePage> {
 
                   MaterialButton(
                     onPressed: () {
-                      Get.to(HomePage());
-                      _pc.close();
-                      up = true;
+                      // Get.to(HomePage());
+                      // _pc.close();
+                      // up = true;
                     },
                     color: Color(0xFF004B6F),
                     elevation: 0,

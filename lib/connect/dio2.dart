@@ -22,6 +22,7 @@ class _dio2State extends State<dio2> {
   void initState(){
     getHttp();
     get1Http();
+    get2Http();
     super.initState();
   }
   getHttp() async{
@@ -41,6 +42,17 @@ class _dio2State extends State<dio2> {
     this.setState(() {
       if (res.data != "data not exits") {
         list3 = jsonDecode(res.data);
+      }
+    });
+  }
+  get2Http() async{
+    String a = Global.userId;
+    var path = "http://173.82.212.40:8989/user/select?userId=$a";
+    Response res = await Dio().get(path);
+    this.setState(() {
+      if (res.data != "data not exits") {
+        Global.userName1 = jsonDecode(res.data)["userName"];
+        Global.email1 = jsonDecode(res.data)["email"];
       }
     });
   }

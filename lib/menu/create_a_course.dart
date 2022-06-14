@@ -22,12 +22,14 @@ class _CreateACourseState extends State<CreateACoursePage> {
   var flag5 = true;
 
   var resultJson = "";
+  var resultJson1 = "";
   var name = "";
   var id = "";
 
   @override
   void initState() {
     getHttp();
+    getHttp1();
     super.initState();
   }
 
@@ -44,6 +46,18 @@ class _CreateACourseState extends State<CreateACoursePage> {
       resultJson = response.data;
     });
     print(resultJson);
+  }
+
+  getHttp1() async {
+    String url = Global.url;
+    var path = "$url/courseorder/insert";
+    var params = {
+      "userId": Global.userId,
+      "courseId": resultJson,
+    };
+    Response response1 = await Dio().post(path, data: params);
+
+    print(response1);
   }
 
   @override
@@ -294,12 +308,22 @@ class _CreateACourseState extends State<CreateACoursePage> {
                   TextButton(
                     onPressed: () {
                       getHttp();
-                      if(resultJson == "Success!"){
-                        Navigator.of(context)..pop()..pop();
-                      }
-                      else{
-                        Navigator.of(context).pop();
-                      }
+                      Future.delayed(Duration(seconds: 1), ()
+                      {
+                        if (resultJson.length < 5) {
+                          getHttp1();
+                          Navigator.of(context).pop();
+                          Get.defaultDialog(
+                              middleText: "the course created success, the courseid is $resultJson");
+
+                        }
+                        else {
+                          Navigator.of(context).pop();
+                          Get.defaultDialog(
+                              middleText: "fail to add");
+
+                        }
+                      });
                     },
                     child: Text(
                       'OK',

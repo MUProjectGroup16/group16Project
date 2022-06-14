@@ -33,8 +33,8 @@ class _CreateACourseState extends State<EditCoursesPage> {
     String url = Global.url;
     var path = "$url/courseorder/insert";
     var params = {
-      "userId":Global.userId,
-      "courseId":id,
+      "userId": Global.userId,
+      "courseId": id,
     };
     Response response = await Dio().post(path, data: params);
 
@@ -127,7 +127,7 @@ class _CreateACourseState extends State<EditCoursesPage> {
                   size: 24,
                   color: AppTheme.on_surface_variant,
                 ),
-                onPressed: () =>  Navigator.of(context).pop(),
+                onPressed: () => Navigator.of(context).pop(),
               ),
               Expanded(
                 child: Center(
@@ -226,7 +226,8 @@ class _CreateACourseState extends State<EditCoursesPage> {
               ),
               Text(
                 'Delete?',
-                style: AppTheme.dialog_main.copyWith(color: AppTheme.on_surface),
+                style:
+                    AppTheme.dialog_main.copyWith(color: AppTheme.on_surface),
               ),
               SizedBox(
                 height: 20,
@@ -312,12 +313,13 @@ class _CreateACourseState extends State<EditCoursesPage> {
       ),
       onPressed: () {
         getHttp();
-        if(resultJson == "Success!"){
-          Navigator.of(context).pop();
-        }
-        else{
-          Get.defaultDialog(middleText: "the course doesn't exist");
-        }
+        Future.delayed(Duration(seconds: 1), () {
+          if (resultJson != "Success!") {
+            Navigator.of(context).pop();
+          } else {
+            Get.defaultDialog(middleText: "the course doesn't exist");
+          }
+        });
       },
       color: AppTheme.on_primary,
       elevation: 0,

@@ -1,7 +1,7 @@
 class Email {
   // super fake email class ¯\_(ツ)_/¯
 
-   Email(this.sender, this.time, this.subject, this.message, this.avatar, this.recipients, this.id, this.hasAttachment,
+   Email(this.sender, this.time, this.subject, this.message, this.avatar, this.recipients, this.id,this.courseid, this.hasAttachment,
       this.containsPictures, this.isRead);
 
   final String sender;
@@ -11,6 +11,7 @@ class Email {
   final String avatar;
   final String recipients;
   final int id;
+  final int courseid;
   final bool hasAttachment;
   final bool containsPictures;
   bool isRead;

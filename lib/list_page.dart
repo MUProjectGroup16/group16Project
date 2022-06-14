@@ -25,7 +25,7 @@ class get3 extends StatelessWidget {
     ) {
       model.emails.clear();
       if (list1.length > 0) {
-        for (int i = list1.length - 1; i > 0; i--) {
+        for (int i = list1.length - 1; i >= 0; i--) {
           model.emails.add(
             Email(
                 list1[i]["file"],
@@ -35,6 +35,7 @@ class get3 extends StatelessWidget {
                 "avatar.png",
                 Global.userName1,
                 list1[i]["sendUserId"],
+                list1[i]["notificationId"],
                 false,
                 false,
                 true),
@@ -42,7 +43,7 @@ class get3 extends StatelessWidget {
         }
       }
       if (list.length > 0) {
-        for (int i = list.length - 1; i > 0; i--) {
+        for (int i = list.length - 1; i >= 0; i--) {
           model.emails.add(
             Email(
                 list[i]["file"],
@@ -52,6 +53,7 @@ class get3 extends StatelessWidget {
                 "avatar.png",
                 Global.userName1,
                 list[i]["sendUserId"],
+                list[i]["notificationId"],
                 false,
                 false,
                 false),
@@ -99,6 +101,7 @@ class ListPage extends StatelessWidget {
                           onDeleted: () => model.deleteEmail(position),
                           onSave: () => model.saveEmail(position),
                         );
+
                       } else {
                         return Container(
                           color: Colors.black,

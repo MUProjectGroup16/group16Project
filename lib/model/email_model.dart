@@ -23,7 +23,7 @@ class EmailModel with ChangeNotifier {
 
   void deleteEmail(int id) async{
     String url = Global.url;
-    print(emails[id].id);
+    print(emails[id].courseid);
     print(emails[id].message);
     print(emails[id].subject);
     print(id);
@@ -31,7 +31,7 @@ class EmailModel with ChangeNotifier {
     await HttpManager.post("$url/notificationCWD/insertWaste",
         {
           "userId": int.parse(Global.userId),
-          "notificationId": emails[id].id,
+          "notificationId": emails[id].courseid,
         }
     );
     emails.removeAt(id);
@@ -47,7 +47,7 @@ class EmailModel with ChangeNotifier {
     await HttpManager.post("$url/notificationCWD/insertCollection",
         {
           "userId": int.parse(Global.userId),
-          "notificationId": emails[id].id,
+          "notificationId": emails[id].courseid,
         }
     );
     emails.removeAt(id);

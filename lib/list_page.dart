@@ -34,7 +34,7 @@ class get3 extends StatelessWidget {
                 list1[i]["content"],
                 "avatar.png",
                 Global.userName1,
-                list1[i]["notificationId"],
+                list1[i]["sendUserId"],
                 false,
                 false,
                 true),
@@ -51,7 +51,7 @@ class get3 extends StatelessWidget {
                 list[i]["content"],
                 "avatar.png",
                 Global.userName1,
-                list[i]["notificationId"],
+                list[i]["sendUserId"],
                 false,
                 false,
                 false),
@@ -73,7 +73,6 @@ class ListPage extends StatelessWidget {
           child: Material(
             color: AppTheme.surface_variant,
             child: Padding(
-
               padding: EdgeInsets.only(bottom: 55),
               child: Container(
                 decoration: new BoxDecoration(color: AppTheme.surface_variant),

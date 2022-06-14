@@ -89,7 +89,7 @@ class _EditorPageState extends State<EditorPage> {
       {
         "receiveUserId": receiveuserId,
         "sendUserId": senduserId,
-        "notificationStatue": 1,
+        "notificationStatue": 0,
         "title": title,
         "content": contect,
         "file": file,
@@ -119,7 +119,7 @@ class _EditorPageState extends State<EditorPage> {
           emailModel.emails[emailModel.currentlySelectedEmailId];
       _recipientAvatar = replyToEmail.avatar;
       _sender = replyToEmail.sender;
-      receiveuserId = int.parse(replyToEmail.sender);
+      receiveuserId = replyToEmail.id;
     }
 
     return Container(
@@ -245,7 +245,6 @@ class _EditorPageState extends State<EditorPage> {
             onPressed: () {
               getHttp();
               Future.delayed(Duration(seconds: 1), () {
-                Navigator.of(context).pop();
                 if (resultJson != "") {
                   resultJson = "";
                   Global.addcourse.clear();

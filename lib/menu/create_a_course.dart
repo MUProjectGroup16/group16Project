@@ -32,7 +32,8 @@ class _CreateACourseState extends State<CreateACoursePage> {
   }
 
   getHttp() async {
-    var path = "http://173.82.212.40:8989/course/insert";
+    String url = Global.url;
+    var path = "$url/course/insert";
     var params = {
       "courseName":name,
       "courseCode":id,

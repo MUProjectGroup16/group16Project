@@ -1,11 +1,13 @@
+import 'package:demo/connect/Global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:demo/setting_page/setting.dart';
 import 'package:demo/styling.dart';
 import 'package:demo/home_page.dart';
 import 'course_management.dart.dart';
+import 'package:dio/dio.dart';
 
 class EditCoursesPage extends StatefulWidget {
   const EditCoursesPage({Key key}) : super(key: key);
@@ -17,6 +19,30 @@ class EditCoursesPage extends StatefulWidget {
 class _CreateACourseState extends State<EditCoursesPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController wordController = TextEditingController();
+  var resultJson = "";
+  var name = "";
+  var id = "";
+
+  @override
+  void initState() {
+    getHttp();
+    super.initState();
+  }
+
+  getHttp() async {
+    String url = Global.url;
+    var path = "$url/courseorder/insert";
+    var params = {
+      "userId":Global.userId,
+      "courseId":id,
+    };
+    Response response = await Dio().post(path, data: params);
+
+    setState(() {
+      resultJson = response.data;
+    });
+    print(resultJson);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +165,9 @@ class _CreateACourseState extends State<EditCoursesPage> {
       child: Column(
         children: [
           TextField(
+            onChanged: (value) {
+              id = value;
+            },
             controller: nameController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -281,7 +310,15 @@ class _CreateACourseState extends State<EditCoursesPage> {
         left: 16,
         right: 16,
       ),
-      onPressed: () {},
+      onPressed: () {
+        getHttp();
+        if(resultJson == "Success!"){
+          Navigator.of(context).pop();
+        }
+        else{
+          Get.defaultDialog(middleText: "the course doesn't exist");
+        }
+      },
       color: AppTheme.on_primary,
       elevation: 0,
       highlightElevation: 0,

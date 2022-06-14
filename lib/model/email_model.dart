@@ -34,7 +34,6 @@ class EmailModel with ChangeNotifier {
           "notificationId": emails[id].id,
         }
     );
-    // notifyListeners();
     emails.removeAt(id);
   }
   void saveEmail(int id) async{
